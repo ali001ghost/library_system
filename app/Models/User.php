@@ -22,7 +22,14 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'subscribe_id'
+
     ];
+
+    public function subsciption()
+    {
+        return $this->belongsTo(Subscribe::class,);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

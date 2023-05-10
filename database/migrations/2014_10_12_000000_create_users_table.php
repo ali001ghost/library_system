@@ -17,7 +17,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->string('address')->nullable();
+            $table->integer('national_id')->nullable();
+            $table->integer('age')->nullable();
+            $table->integer('number')->nullable();
+         $table->foreignId('subscribe_id')->constrained('subscribes')->cascadeOnDelete();
+
+
             $table->timestamps();
         });
     }

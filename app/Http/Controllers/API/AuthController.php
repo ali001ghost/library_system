@@ -32,6 +32,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+           'subscribe_id'=>$request->subscribe_id,
 
         ]);
 
@@ -47,7 +48,7 @@ class AuthController extends Controller
 
         ]);
     }
-    public function login(Request $request)
+    public function  login(Request $request)
     {
         $request->validate([
             'email' => 'required|string|email',
@@ -92,4 +93,8 @@ class AuthController extends Controller
             ]
         ]);
     }
+
+
+
+
 }
