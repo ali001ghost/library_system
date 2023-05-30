@@ -25,7 +25,9 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
+             'file_path' => 'required|mimes:jpg,png'
         ]);
+        $path = upload($request->file_path, '/images/content');
 
 
         $user = User::create([
@@ -33,6 +35,12 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
            'subscribe_id'=>$request->subscribe_id,
+            'file_path'=>$path,
+            'address'=>$request->address,
+            'age'=>$request->age,
+
+            'number'=>$request->number
+
 
         ]);
 

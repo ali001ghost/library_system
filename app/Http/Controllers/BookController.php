@@ -15,58 +15,52 @@ class BookController extends Controller
         public function upload(Request $request)
         {
             $request->validate([
-                'file' => 'required|mimes:pdf'
+                'file_path' => 'required|mimes:pdf',
+                'image'=> 'required|mimes:jpg,png'
+
             ]);
 
-            $name = $request->file->getClientOriginalName();
-            $path = $request->file('file')->store('files');
+            $path = upload($request->file_path, '/books/content');
+            $image = upload($request->image, '/books/image');
 
-            Book::create([
-                'name' => $name,
+
+           $result = Book::query()->create([
+                'name' => $request->name,
                 'file_path' => $path,
                 'uploader_id'=>Auth::user()->id,
-                 'sub_category_id'=>$request->sub_category_id,
-                 'price'=>$request->price,
-     'user_id'=>Auth::user()->id
+                'sub_category_id'=>$request->sub_category_id,
+                'price'=>$request->price,
+                'author'=>$request->author,
+
+                'review'=>$request->review,
+                'rate'=>$request->rate,
+                'pagenumber'=>$request->pagenumber,
+                'amount'=>$request->amount,
+                'image'=>$image
 
             ]);
 
-            return response()->json(['success' => 'File uploaded successfully.']);
+            return response()->json(['success' => 'File uploaded successfully.',
+        'data' => $result ]);
         }
 
         public function index()
     {
         $us= User::all();
         $books = Book::all();
-        foreach ($books as $book) {
-            $user = Auth::user();
-            if ($user->subscribe_id == 2) {
-                $book->append = $book->price - ($book->price * 0.20); $book;
 
-            }
-              elseif ($user->subscribe_id == 3) {
-                 $book->append = $book->price - ($book->price * 0.35); $book;
-           
-            //     // $book->save();
-            }
-             elseif ($user->subscribe_id == 1) {
-                $book->append = $book->price - ($book->price); $book;
-
-    }}
-   // $book->save();   }
-    return response()->json($books);
+   return response()->json ([
+    'response'=>'success',
+    'data'=>$books]);
 }
+public function get(Request $request  )
+{
+
+    $books = Book::query()->where('sub_category_id', $request->sub_category_id)->get();
+return response()->json ([
+    'response'=>'success',
+    'data'=>$books]);
 }
 
-//     public function index()
-//     {
-//         Book::whereHas('user', function ($query) {
-//             $query->where('subscribe_id', 3);
-//         })->update([
-//             'price' => DB::raw('price * 0.85'),
-//         ]);
-//         $books = Book::all();
-//         return response()->json($books);
-//     }
+}
 
-//

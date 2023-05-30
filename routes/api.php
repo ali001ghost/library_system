@@ -33,6 +33,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('category', [CategoryController::class,'Getcategory']);
     Route::get('getbook', [SubscribeController::class, 'discount']);
     Route::get('books', [BookController::class, 'index']);
+    Route::get('books/sub', [BookController::class, 'get']);
+
     Route::post('/file/upload', [BookController::class,'upload']);
 
 });

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('book_users', function (Blueprint $table) {
             $table->id();
+            $table->enum('favorite', ['yes', 'no'])->default('no');
+            $table->enum('planingtoread', ['yes', 'no'])->default('no');
+            $table->enum('bought', ['yes', 'no'])->default('no');
+
             $table->timestamps();
         });
     }

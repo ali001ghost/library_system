@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('address')->nullable();
+            $table->string('address');
             $table->integer('national_id')->nullable();
-            $table->integer('age')->nullable();
-            $table->integer('number')->nullable();
+            $table->integer('age');
+            $table->integer('number');
+            $table->string('file_path');
          $table->foreignId('subscribe_id')->constrained('subscribes')->cascadeOnDelete();
 
 

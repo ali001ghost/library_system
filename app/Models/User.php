@@ -22,9 +22,13 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'subscribe_id'
-
+        'subscribe_id',
+        'address',
+        'age',
+        'number',
+        'file_path'
     ];
+
 
     public function subsciption()
     {
